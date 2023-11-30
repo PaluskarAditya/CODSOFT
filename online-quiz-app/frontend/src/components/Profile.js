@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserQuizes } from '../features/userSlice';
+import { deleteQuiz, getUserQuizes } from '../features/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
@@ -52,7 +52,7 @@ export default function Profile() {
           {
             userQuizes ? userQuizes.map(el => <li key={el._id} className='border flex justify-between items-center border-gray-200 rounded-md p-3'>
             <h1 className='tracking-tight font-medium text-md'>{el.name}</h1>
-            <button className='bg-black text-white rounded-full p-2 px-4 text-xs'>delete</button>
+            <button className='bg-black text-white rounded-full p-2 px-4 text-xs' onClick={() => disp(deleteQuiz(el._id))}>delete</button>
           </li>) : <h1 className='tracking-tight font-medium text-md'>No quizes</h1>
           }
         </ul>

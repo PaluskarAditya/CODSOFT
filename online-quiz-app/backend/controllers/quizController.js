@@ -26,8 +26,8 @@ const createQuiz = async (req, res) => {
 const delQuiz = async (req, res) => {
   try {
     const { id } = req.params;
-    await Quiz.findByIdAndDelete(id);
-    res.json({msg: "successfully deleted"});
+    const quiz = await Quiz.findByIdAndDelete(id);
+    res.json(quiz);
   } catch (error) {
     console.log(error.message); 
   }

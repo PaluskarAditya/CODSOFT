@@ -104,7 +104,7 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.NjU2ODZjZTEwMzUxYWI5NDMwMTE3OTA2.1vUrB0B7s2I
 
 ### 
 
-DELETE {{host}}/api/quiz/delete/65687a4a1ce27e7134c6d65b
+DELETE {{host}}/api/quiz/delete/6568da63cb3b54c8f4a306ff
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiJ9.NjU2ODZjZTEwMzUxYWI5NDMwMTE3OTA2.1vUrB0B7s2Ia0FbhLR8QPjtSYV3NzvMW9Gl4Nc_tk9M
 
