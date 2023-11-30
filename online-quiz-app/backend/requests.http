@@ -1,0 +1,110 @@
+@host = http://localhost:7070
+
+GET {{host}}
+
+###
+
+POST {{host}}/api/user/login
+Content-Type: application/json
+
+{
+  "uname": "aditya",
+  "pass": "aditya2004"
+}
+
+###
+
+POST {{host}}/api/user/register
+Content-Type: application/json
+
+{
+  "name": "aditya paluskar",
+  "uname": "aditya",
+  "email": "aditya@something.com",
+  "pass": "aditya2004"
+}
+
+###
+
+GET {{host}}/api/quiz/all
+Content-Type: application/json
+
+###
+
+GET {{host}}/api/user/all
+Content-Type: application/json
+
+### 
+
+GET {{host}}/api/quiz/myquizes
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.NjU2ODZjZTEwMzUxYWI5NDMwMTE3OTA2.1vUrB0B7s2Ia0FbhLR8QPjtSYV3NzvMW9Gl4Nc_tk9M
+
+###
+
+POST {{host}}/api/quiz/create
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.NjU2ODZjZTEwMzUxYWI5NDMwMTE3OTA2.1vUrB0B7s2Ia0FbhLR8QPjtSYV3NzvMW9Gl4Nc_tk9M
+
+{
+  "name": "Cricket Quiz",
+  "quiz_data": [
+    {
+      "quiz_text": "Who holds the record for the highest individual score in a One Day International (ODI) cricket match?",
+      "quiz_options": ["Sachin Tendulkar", "Rohit Sharma", "Virender Sehwag", "Chris Gayle"],
+      "quiz_answer": "Rohit Sharma"
+    },
+    {
+      "quiz_text": "Which country won the ICC Cricket World Cup in 2019?",
+      "quiz_options": ["India", "Australia", "England", "South Africa"],
+      "quiz_answer": "England"
+    },
+    {
+      "quiz_text": "Who is known as the 'God of Cricket'?",
+      "quiz_options": ["Virat Kohli", "AB de Villiers", "Sachin Tendulkar", "Steve Smith"],
+      "quiz_answer": "Sachin Tendulkar"
+    },
+    {
+      "quiz_text": "In which city is the Melbourne Cricket Ground (MCG) located?",
+      "quiz_options": ["Sydney", "Melbourne", "Brisbane", "Perth"],
+      "quiz_answer": "Melbourne"
+    },
+    {
+      "quiz_text": "Who is the leading run-scorer in Test cricket as of 2023?",
+      "quiz_options": ["Steve Smith", "Joe Root", "Kane Williamson", "Virat Kohli"],
+      "quiz_answer": "Steve Smith"
+    },
+    {
+      "quiz_text": "Which player has hit the most sixes in T20 International cricket?",
+      "quiz_options": ["AB de Villiers", "Chris Gayle", "Martin Guptill", "Rohit Sharma"],
+      "quiz_answer": "Chris Gayle"
+    },
+    {
+      "quiz_text": "In which year did the Indian Premier League (IPL) make its debut?",
+      "quiz_options": ["2007", "2008", "2009", "2010"],
+      "quiz_answer": "2008"
+    },
+    {
+      "quiz_text": "Who is the fastest bowler to reach 100 wickets in One Day Internationals?",
+      "quiz_options": ["Mitchell Starc", "Saqlain Mushtaq", "Rashid Khan", "Shoaib Akhtar"],
+      "quiz_answer": "Rashid Khan"
+    },
+    {
+      "quiz_text": "Which cricketer is known as the 'Yorker King'?",
+      "quiz_options": ["Jasprit Bumrah", "Trent Boult", "Lasith Malinga", "Mitchell Starc"],
+      "quiz_answer": "Lasith Malinga"
+    },
+    {
+      "quiz_text": "Who was the first cricketer to score a double century in One Day Internationals?",
+      "quiz_options": ["Virender Sehwag", "Sachin Tendulkar", "Rohit Sharma", "Chris Gayle"],
+      "quiz_answer": "Sachin Tendulkar"
+    }
+  ]
+}
+
+### 
+
+DELETE {{host}}/api/quiz/delete/65687a4a1ce27e7134c6d65b
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.NjU2ODZjZTEwMzUxYWI5NDMwMTE3OTA2.1vUrB0B7s2Ia0FbhLR8QPjtSYV3NzvMW9Gl4Nc_tk9M
+
