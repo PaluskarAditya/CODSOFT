@@ -13,7 +13,6 @@ export default function Profile() {
 
   useEffect(() => {
     disp(getUserQuizes());
-    console.log(username, name, email);
   }, [])
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export default function Profile() {
       <div className='flex justify-center -mt-[60px] items-center gap-10 h-screen'>
         <div className='flex-1 flex flex-col justify-center items-center'>
           <img src='/profile.png' className='rounded-full h-1/2 w-1/2' />
-          <label className='p-3 w-max mt-5 bg-black text-white rounded-full w-1/2 text-sm text-center cursor-pointer' htmlFor='file'>change image</label>
+          <label className='p-3 w-max mt-5 bg-black text-white rounded-full text-sm text-center cursor-pointer' htmlFor='file'>change image</label>
           <input type='file' id='file' className='hidden' value={img} onChange={e => setImg(e.target.value)} />
         </div>
         <div className='flex-1 flex justify-center items-center flex-col w-full'>

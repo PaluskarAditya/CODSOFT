@@ -108,3 +108,8 @@ DELETE {{host}}/api/quiz/delete/6568da63cb3b54c8f4a306ff
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiJ9.NjU2ODZjZTEwMzUxYWI5NDMwMTE3OTA2.1vUrB0B7s2Ia0FbhLR8QPjtSYV3NzvMW9Gl4Nc_tk9M
 
+###
+
+GET {{host}}/api/quiz/getquiz/656876b509627562a40bb269
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.NjU2ODZjZTEwMzUxYWI5NDMwMTE3OTA2.1vUrB0B7s2Ia0FbhLR8QPjtSYV3NzvMW9Gl4Nc_tk9M

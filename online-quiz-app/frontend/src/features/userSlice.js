@@ -40,6 +40,38 @@ export const deleteQuiz = createAsyncThunk('user/quizdelete', async (id) => {
   return data;
 })
 
+export const createQuiz = createAsyncThunk('users/quizcreate', async (quiz) => {
+  try {
+    console.log("thunk:", quiz);
+    const res = await fetch('http://localhost:7070/api/quiz/create', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": JSON.parse(localStorage.getItem('token'))
+      },
+      body: JSON.stringify({
+        name: quiz.name,
+        quiz_data: [
+          quiz.questions.map(el => {
+            return {
+              quiz_text: el.text,
+              quiz_answer: el.answer,
+              quiz_options: el.options.map(opt => {
+                return opt
+              })
+            }
+          })
+        ]
+      })
+    });
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error.message)
+  }
+})
+
 export const getUserQuizes = createAsyncThunk('user/quizes', async () => {
   const res = await fetch(`${baseUrl}/api/quiz/myquizes`, {
     headers: {
@@ -93,6 +125,10 @@ const userSlice = createSlice({
 
     builder.addCase(deleteQuiz.fulfilled, (state, action) => {
       state.userQuizes = state.userQuizes.filter(el => el._id !== action.payload._id);
+    })
+
+    builder.addCase(createQuiz.fulfilled, (state, action) => {
+      state.userQuizes.push(action.payload);
     })
   }
 })

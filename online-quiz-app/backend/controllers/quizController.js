@@ -9,7 +9,7 @@ const createQuiz = async (req, res) => {
     const quiz = await Quiz({
       name,
       author: user.username,
-      quiz_data,
+      quiz_data: quiz_data[0],
       user_id: id
     })
     if (quiz) {
@@ -60,9 +60,24 @@ const userQuizes = async (req, res) => {
   }
 }
 
+const getQuiz = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const quiz = await Quiz.findById(id);
+    if (!quiz) {
+      res.status(404).json({err: "quiz not found"});
+    } else {
+      res.json(quiz);
+    }
+  } catch (error) { 
+    console.log(error.message);
+  }
+}
+
 module.exports = {
   createQuiz,
   delQuiz,
   allQuiz,
-  userQuizes
+  userQuizes,
+  getQuiz,
 }
