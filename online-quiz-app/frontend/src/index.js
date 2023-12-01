@@ -10,6 +10,7 @@ import Explore from './components/Explore';
 import { Provider } from 'react-redux';
 import store from './features/store';
 import Profile from './components/Profile';
+import CreateQuiz from './components/CreateQuiz';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,6 +23,7 @@ root.render(
           <Route path='/auth' element={<Auth />} />
           <Route path='/explore' element={<Explore />} />
           <Route path='/me' element={<Profile />} />
+          <Route path='/create' element={<CreateQuiz />} />
         </Routes>
       </Provider>
     </Router>

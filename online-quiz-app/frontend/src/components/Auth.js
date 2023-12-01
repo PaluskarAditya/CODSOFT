@@ -26,7 +26,7 @@ export default function Auth() {
         <div className='flex-1 rounded-l-md w-1/2 relative'>
           <img src='/login.jpg' alt='background' className='rounded-l-md h-full w-full' />
           <div className='flex rounded-l-md justify-center items-center bg-black/40 absolute top-0 left-0 right-0 bottom-0'>
-            <h1 className='text-white tracking-tighter text-5xl font-bold text-center'>Sharpen yourself with amazing quizzes</h1>
+            <h1 className='text-white tracking-tighter text-5xl font-bold text-center w-1/2'>Sharpen yourself with amazing quizzes</h1>
           </div>
         </div>
         <div className='w-1/3 flex-col flex justify-center items-center p-5 rounded-r-md gap-3'>
