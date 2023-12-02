@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { createQuiz } from '../features/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateQuiz() {
+  const { isLogin } = useSelector(state => state.user);
   const [name, setName] = useState('');
+  const nav = useNavigate();
   const [questions, setQuestions] = useState([
     { text: '', answer: '', options: ['', '', '', ''] },
     { text: '', answer: '', options: ['', '', '', ''] },
@@ -38,6 +41,10 @@ export default function CreateQuiz() {
     disp(createQuiz(data));
     console.log('posting quiz')
   }
+
+  useEffect(() => {
+    isLogin === false && nav('/auth');
+  }, [])
 
   return (
     <div className='flex flex-col mt-[60px] justify-center items-center'>

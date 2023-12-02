@@ -74,10 +74,27 @@ const getQuiz = async (req, res) => {
   }
 }
 
+const randomQuizes = async (req, res) => {
+  try {
+    const limit = parseInt(req.params.limit);
+    const randomQuizzes = await Quiz.aggregate([
+      { $sample: { size: limit * 2 } },
+      { $group: { _id: '$_id', data: { $first: '$$ROOT' } } },
+      { $limit: limit },
+    ]);
+    res.json(randomQuizzes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+
 module.exports = {
   createQuiz,
   delQuiz,
   allQuiz,
   userQuizes,
   getQuiz,
+  randomQuizes
 }

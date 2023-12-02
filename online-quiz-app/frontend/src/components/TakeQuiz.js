@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export default function TakeQuiz() {
@@ -9,6 +10,8 @@ export default function TakeQuiz() {
   const [opts, setOpts] = useState({});
   const [done, setDone] = useState(false);
   const [score, setScore] = useState(0);
+  const { isLogin } = useSelector(state => state.user);
+  const nav = useNavigate();
 
   useEffect(() => {
     const getQuizById = async () => {
@@ -48,6 +51,13 @@ export default function TakeQuiz() {
     }
   };
 
+  const handleShare = (txt) => {
+    navigator.clipboard.writeText(txt);
+    toast('Quiz link copied successfully!!!', { position: "bottom-right", theme: "dark" });
+    setDone(false);
+    nav('/explore');
+  }
+
   return (
     <div className='mt-[60px] flex flex-col p-5 justify-center items-center'>
       {done ? <div className='flex justify-center items-center fixed top-0 left-0 right-0 bottom-0 bg-black/20 backdrop-blur-sm z-50'>
@@ -58,9 +68,11 @@ export default function TakeQuiz() {
             </svg>
           </button>
           {score > 8 ? <><h1 className='mt-3 text-2xl font-medium tracking-tight'>Congratulations &#127881;</h1>
-            <p className='tracking-tighter text-gray-600 text-md'>you have scored {score} out of {quiz.quiz_data?.length}</p></> : <><h1 className='mt-3 text-2xl font-medium tracking-tight'>You did good &#128533;</h1>
+            <p className='tracking-tighter text-gray-600 text-md'>you have scored {score} out of {quiz.quiz_data?.length}</p>
+            <button onClick={() => handleShare(window.location)} className='text-xs rounded-full p-2 px-4 bg-black text-white'>share this quiz and let others play</button></> : <><h1 className='mt-3 text-2xl font-medium tracking-tight'>You did good &#128533;</h1>
             <p className='tracking-tighter text-gray-600 text-md'>you have scored {score} out of {quiz.quiz_data?.length}</p>
             <p className='tracking-tighter text-sm'>Better Luck Next Time</p></>}
+          {isLogin === false && <p className='tracking-tighter text-sm'>Login to save your score</p>}
         </div>
       </div> : ""}
       <h1 className='text-2xl text-light tracking-tighter'>Welcome to, <span className='text-2xl font-medium tracking-tighter'>{quiz?.name}</span ></h1>

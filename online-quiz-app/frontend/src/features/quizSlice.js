@@ -8,13 +8,31 @@ export const getAllQuizes = createAsyncThunk('quiz/all', async () => {
   return data;
 })
 
+export const randomQuizes = createAsyncThunk('quiz/random', async () => {
+  const res = await fetch(`${baseUrl}/api/quiz/random/3`, {
+    headers: {
+      "Content-type": "application/json",
+      "Authorization": JSON.parse(localStorage.getItem('token'))
+    }
+  });
+  const data = await res.json();
+  return data;
+})
+
 const quizSlice = createSlice({
   name: "quiz",
-  initialState: [],
+  initialState: {
+    allquiz: [],
+    topQuiz: [],
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAllQuizes.fulfilled, (state, action) => {
-      return action.payload;
+      state.allquiz = action.payload;
+    })
+
+    builder.addCase(randomQuizes.fulfilled, (state, action) => {
+      state.topQuiz = action.payload;
     })
   }
 })

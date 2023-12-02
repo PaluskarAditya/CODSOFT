@@ -4,16 +4,21 @@ import { deleteQuiz, getUserQuizes } from '../features/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
-  const [img, setImg] = useState('');
+  const [ img, setImg ] = useState('');
   const { userQuizes, isLogin } = useSelector(state => state.user);
   const { username, name, email } = useSelector(state => state.user.user);
-  const [user, setUser] = useState({name, uname: username, email});
+  const [allquiz, setAllquiz] = useState([]);
+  const [ user, setUser ] = useState({name, uname: username, email});
   const disp = useDispatch();
   const nav = useNavigate();
 
   useEffect(() => {
     disp(getUserQuizes());
   }, [])
+
+  useEffect(() => {
+    setAllquiz(userQuizes);
+  }, [userQuizes])
 
   useEffect(() => {
     !isLogin ? nav('/auth') : nav('/me'); 
@@ -24,7 +29,7 @@ export default function Profile() {
       <div className='flex justify-center -mt-[60px] items-center gap-10 h-screen'>
         <div className='flex-1 flex flex-col justify-center items-center'>
           <img src='/profile.png' className='rounded-full h-1/2 w-1/2' />
-          <label className='p-3 w-max mt-5 bg-black text-white rounded-full text-sm text-center cursor-pointer' htmlFor='file'>change image</label>
+          <label className='p-2 px-4 w-max mt-5 bg-black text-white rounded-full text-sm text-center cursor-pointer' htmlFor='file'>change image</label>
           <input type='file' id='file' className='hidden' value={img} onChange={e => setImg(e.target.value)} />
         </div>
         <div className='flex-1 flex justify-center items-center flex-col w-full'>
@@ -49,7 +54,7 @@ export default function Profile() {
         <h1 className='font-bold tracking-tight text-3xl'>Your quizes</h1>
         <ul className='flex flex-col gap-4'>
           {
-            userQuizes ? userQuizes.map(el => <li key={el._id} className='border flex justify-between items-center border-gray-200 rounded-md p-3'>
+            allquiz ? allquiz?.map(el => <li key={el._id} className='border flex justify-between items-center border-gray-200 rounded-md p-3'>
             <h1 className='tracking-tight font-medium text-md'>{el.name}</h1>
             <button className='bg-black text-white rounded-full p-2 px-4 text-xs' onClick={() => disp(deleteQuiz(el._id))}>delete</button>
           </li>) : <h1 className='tracking-tight font-medium text-md'>No quizes</h1>

@@ -1,4 +1,4 @@
-const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
+const { createSlice, createAsyncThunk, isRejectedWithValue } = require("@reduxjs/toolkit");
 
 const baseUrl = 'http://localhost:7070'
 const initialState = {
@@ -10,7 +10,8 @@ const initialState = {
   },
   token: JSON.parse(localStorage.getItem('token')) ? JSON.parse(localStorage.getItem('token')) : "",
   userQuizes: [],
-  isLogin: JSON.parse(localStorage.getItem('token')) ? true : false
+  isLogin: JSON.parse(localStorage.getItem('token')) ? true : false,
+  error: null
 }
 
 export const login = createAsyncThunk('user/login', async (cred) => {
@@ -25,6 +26,9 @@ export const login = createAsyncThunk('user/login', async (cred) => {
     })
   });
   const data = await res.json();
+  if (data.err) {
+    throw new Error(data.err);
+  }
   return data;
 });
 
@@ -65,10 +69,9 @@ export const createQuiz = createAsyncThunk('users/quizcreate', async (quiz) => {
       })
     });
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
 })
 
@@ -101,7 +104,9 @@ export const register = createAsyncThunk('user/register', async (cred) => {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: () => initialState
+  },
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLogin = true;
@@ -112,11 +117,11 @@ const userSlice = createSlice({
     })
 
     builder.addCase(register.fulfilled, (state, action) => {
-      state.isLogin = true;
-      state.token = action.payload.token;
-      state.user = action.payload.user;
-      localStorage.setItem('user', JSON.stringify(action.payload.user));
-      localStorage.setItem('token', JSON.stringify(action.payload.token));
+        state.isLogin = true;
+        state.token = action.payload.token;
+        state.user = action.payload.user;
+        localStorage.setItem('user', JSON.stringify(action.payload.user));
+        localStorage.setItem('token', JSON.stringify(action.payload.token));
     })
 
     builder.addCase(getUserQuizes.fulfilled, (state, action) => {
@@ -130,7 +135,12 @@ const userSlice = createSlice({
     builder.addCase(createQuiz.fulfilled, (state, action) => {
       state.userQuizes.push(action.payload);
     })
+
+    builder.addCase(login.rejected, (state, action) => {
+      state.error = action.error.message;
+    })
   }
 })
 
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;
