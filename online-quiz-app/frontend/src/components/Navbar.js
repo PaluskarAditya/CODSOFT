@@ -34,7 +34,7 @@ export default function Navbar() {
             <li onClick={() => setOpts(false)} className='p-1'><Link to={'/explore'}>Explore</Link></li>
             <li onClick={() => setOpts(false)} className='p-1'><Link to={'/create'}>Create</Link></li>
             {isLogin ? <li onClick={() => setOpts(false)} className='p-1'><Link to={'/me'}>{username}</Link></li> : ""}
-            {isLogin ? <li onClick={() => setOpts(false)} className='p-1'><button className='bg-black text-white rounded-full tracking-tighter p-1 px-3 text-sm' onClick={handleLogout}>Logout</button></li> : ""}
+            {isLogin ? <li onClick={() => setOpts(false)} className='p-1'><button className='bg-black text-white rounded-full tracking-tighter p-2 px-4 text-sm' onClick={handleLogout}>Logout</button></li> : <li onClick={() => setOpts(false)} className='p-1'><Link to={'/auth'} className='bg-black text-white rounded-full tracking-tighter p-1 px-3 text-sm'>Login</Link></li>}
           </ul>
         </div> : ""}
       </ul>

@@ -105,7 +105,10 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    logout: () => initialState
+    logout: () => {
+      localStorage.clear();
+      return {...initialState}
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {

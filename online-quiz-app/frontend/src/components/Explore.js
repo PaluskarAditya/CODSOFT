@@ -31,7 +31,7 @@ export default function Explore() {
 	}
 
 	return (
-		<div className='flex flex-col mt-[80px] justify-center items-center'>
+		<div id='explore' className='flex flex-col mt-[80px] justify-center items-center'>
 			<div className='w-full flex justify-between items-center px-5'>
 				<h1 className='text-3xl font-medium tracking-tighter'>Explore</h1>
 				<select className='text-sm tracking-tighter font-medium outline-none' defaultChecked="default">

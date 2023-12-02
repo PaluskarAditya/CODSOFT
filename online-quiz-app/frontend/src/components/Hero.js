@@ -10,7 +10,7 @@ export default function Hero() {
   }
 
   return (
-    <div className='h-screen max-[390px]:flex-col max-[390px]:h-full max-[390px]:mt-[60px] flex justify-center items-center gap-5 p-10'>
+    <div id='hero' className='h-screen min-[390px]:flex-col max-[390px]:h-full max-[390px]:mt-[60px] flex justify-center items-center gap-5 p-10'>
       <div className='flex-1 flex flex-col justify-center items-end'>
         <h1 className='font-black text-right tracking-tighter text-5xl'>Upgrade & Update yourself with our online quizzes</h1>
         <button className='p-3 px-6 rounded-full bg-black text-white w-max mt-5' onClick={handleStart}>get started</button>
