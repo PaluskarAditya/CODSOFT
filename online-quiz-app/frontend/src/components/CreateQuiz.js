@@ -48,8 +48,8 @@ export default function CreateQuiz() {
 
   return (
     <div className='flex flex-col mt-[60px] justify-center items-center'>
-      <h1 className='text-3xl tracking-tighter font-medium my-3 mt-10'>Create an awesome quiz</h1>
-      <div className='w-1/2 flex gap-3 items-center justify-center mt-3'>
+      <h1 className='lg:text-3xl tracking-tighter font-medium my-3 mt-10 max-[390px]:text-2xl'>Create an awesome quiz</h1>
+      <div className='lg:w-1/2 min-[390px]:w-3/4 flex gap-3 items-center justify-center mt-3'>
         <p className='text-sm'>Enter quiz name: </p>
         <input
           type='text'
@@ -61,7 +61,7 @@ export default function CreateQuiz() {
       </div>
       <div className='flex flex-col gap-5 mt-5 w-full justify-center items-center mb-5'>
         {questions.map((q, questionIndex) => (
-          <div key={questionIndex} className='bg-gray-100 p-5 rounded-md flex flex-col w-1/2'>
+          <div key={questionIndex} className='bg-gray-100 p-5 rounded-md flex flex-col lg:w-1/2 min-[390px]:w-3/4'>
             <div className='flex gap-2 flex-col'>
               <p className='text-sm'>{`Enter question ${questionIndex + 1}: `}</p>
               <input
@@ -95,7 +95,7 @@ export default function CreateQuiz() {
           </div>
         ))}
       </div>
-      <button onClick={handlePostQuiz} className='bg-black rounded-full text-sm tracking-tighter text-white w-1/2 p-2 mb-5'>create quiz</button>
+      <button onClick={handlePostQuiz} className='w-1/2 sm:w-3/4 max-[390px]:w-3/4 bg-black rounded-full text-sm tracking-tighter text-white p-2 mb-5'>create quiz</button>
     </div>
   );
 }

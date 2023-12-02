@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <nav className='p-3 z-50 fixed top-0 left-0 right-0 backdrop-blur-md bg-white/90'>
-      <ul className='min-[390]:inline flex p-2 justify-between items-start w-full flex-col'>
+      <ul className='max-[390]:hidden flex p-2 justify-between items-start w-full flex-col' id='resp-nav'>
         <div className='flex justify-between items-center w-full'>
           <li className='text-xl font-medium tracking-tighter'><Link to={'/'} onClick={() => setOpts(false)}>Quizz App</Link></li>
           <button onClick={() => setOpts(!opts)}>
@@ -38,7 +38,7 @@ export default function Navbar() {
           </ul>
         </div> : ""}
       </ul>
-      <ul className='flex justify-center items-center gap-3 max-[390px]:hidden'>
+      <ul id='main-nav' className='flex justify-center items-center gap-3 max-[390px]:hidden'>
         <li className='cursor-pointer text-sm tracking-tighter font-medium p-2'><Link to={'/'}>Quizz App</Link></li>
         <li className='cursor-pointer text-sm tracking-tighter font-medium p-2'><Link to={'/explore'}>Explore</Link></li>
         {isLogin ? <li className='cursor-pointer text-sm tracking-tighter font-medium p-2'><Link to={'/create'}>Create</Link></li> : ""}

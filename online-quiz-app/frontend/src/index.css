@@ -5,3 +5,42 @@
 * {
     font-family: 'Poppins', sans-serif;
 }
+
+#main-nav {
+    display: flex;
+}
+
+#resp-nav {
+    display: none;
+}
+
+@media only screen and (max-width: 390px) {
+    #main-nav {
+        display: none;
+    }
+
+    #resp-nav {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #resp-nav .toggle-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #resp-nav .options {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    #resp-nav ul {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #resp-nav li {
+        padding: 1rem;
+    }
+}

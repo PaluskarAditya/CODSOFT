@@ -59,7 +59,7 @@ export default function TakeQuiz() {
   }
 
   return (
-    <div className='mt-[60px] flex flex-col p-5 justify-center items-center'>
+    <div className='mt-[90px] flex flex-col p-5 justify-center items-center'>
       {done ? <div className='flex justify-center items-center fixed top-0 left-0 right-0 bottom-0 bg-black/20 backdrop-blur-sm z-50'>
         <div className='bg-white rounded-md p-5 flex justify-center items-center flex-col gap-3 relative'>
           <button className='absolute top-1 right-1' onClick={() => setDone(false)}>
@@ -77,9 +77,9 @@ export default function TakeQuiz() {
       </div> : ""}
       <h1 className='text-2xl text-light tracking-tighter'>Welcome to, <span className='text-2xl font-medium tracking-tighter'>{quiz?.name}</span ></h1>
       <p className='text-gray-500 text-sm tracking-tighter my-3'>guidance: select options you believe are correct and once selected all answers, submit and view your score.</p>
-      <div className='flex flex-col gap-5 w-1/2 mt-5'>
+      <div className='flex flex-col gap-5 lg:w-1/2 sm:w-1/2 mt-5 w-full'>
         {quiz?.quiz_data?.map((el, i) => (
-          <div key={i} className='rounded-md bg-gray-100 p-5 gap-5'>
+          <div key={i} className='w-full rounded-md bg-gray-100 p-5 gap-5'>
             <h1 className='text-md tracking-tighter font-extralight'>Q{i+1}. {el.quiz_text}</h1>
             <div className='flex flex-col gap-2 mt-3'>
               {el.quiz_options?.map((opt, j) => (
