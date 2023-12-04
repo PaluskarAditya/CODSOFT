@@ -32,7 +32,6 @@ export default function TakeQuiz() {
     const new_data = { ...data };
     new_data[i] = e.target.value;
     change(new_data);
-    // console.log(new_data);
   };
 
   const handleQuizSubmit = () => {

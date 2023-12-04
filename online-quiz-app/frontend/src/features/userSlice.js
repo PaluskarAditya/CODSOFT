@@ -46,7 +46,6 @@ export const deleteQuiz = createAsyncThunk('user/quizdelete', async (id) => {
 
 export const createQuiz = createAsyncThunk('users/quizcreate', async (quiz) => {
   try {
-    console.log("thunk:", quiz);
     const res = await fetch(`${baseUrl}/api/quiz/create`, {
       method: "POST",
       headers: {

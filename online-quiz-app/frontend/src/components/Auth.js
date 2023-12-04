@@ -52,7 +52,7 @@ export default function Auth() {
             <input onChange={e => setCred({ ...cred, [e.target.name]: e.target.value })} name='uname' value={cred.uname} type='text' className='rounded-full text-sm w-full lg:w-3/4 py-2 px-4 border border-gray-200 outline-none' placeholder='Username' />
           </div>
           <div className='flex flex-col justify-center items-center w-full gap-1'>
-            <input onChange={e => setCred({ ...cred, [e.target.name]: e.target.value })} name='pass' value={cred.pass} type='text' placeholder='Password' className='rounded-full text-sm w-full lg:w-3/4 py-2 px-4 border border-gray-200 outline-none' />
+            <input onChange={e => setCred({ ...cred, [e.target.name]: e.target.value })} name='pass' value={cred.pass} type='password' placeholder='Password' className='rounded-full text-sm w-full lg:w-3/4 py-2 px-4 border border-gray-200 outline-none' />
           </div>
           <button className='bg-black rounded-full text-white text-sm w-3/4 p-2 px-4' onClick={handleLogin}>
             login

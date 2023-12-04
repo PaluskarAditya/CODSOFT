@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createQuiz } from '../features/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify'
+import { getAllQuizes } from '../features/quizSlice';
 
 export default function CreateQuiz() {
   const { isLogin } = useSelector(state => state.user);
+  const { userQuizes } = useSelector(state => state.user.user);
   const [name, setName] = useState('');
   const nav = useNavigate();
   const [questions, setQuestions] = useState([
@@ -37,10 +40,14 @@ export default function CreateQuiz() {
 
   const handlePostQuiz = () => {
     const data = { name, questions };
-    console.log(data);
     disp(createQuiz(data));
-    console.log('posting quiz')
+    toast('Quiz created successfully!!!', { position: "bottom-right", theme: "dark" });
+    setTimeout(() => nav('/explore'), 1000);
   }
+
+  useEffect(() => {
+    disp(getAllQuizes());
+  }, [userQuizes])
 
   useEffect(() => {
     isLogin === false && nav('/auth');
