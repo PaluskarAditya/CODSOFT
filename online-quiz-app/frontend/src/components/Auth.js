@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../features/userSlice'
+import { login, register } from '../features/userSlice'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -27,6 +27,14 @@ export default function Auth() {
 
   const handleLogin = () => {
     disp(login(cred));
+  }
+
+  const handleRegister = () => {
+    disp(register(cred));
+    if (!error && isLogin === true) {
+      nav('/');
+      toast('Signup successfull!', { position: "bottom-right", theme: "dark" });
+    }
   }
 
   return (
@@ -69,7 +77,7 @@ export default function Auth() {
           <div className='flex flex-col justify-center items-center w-full gap-1'>
             <input onChange={e => setCred({ ...cred, [e.target.name]: e.target.value })} name='pass' value={cred.pass} type='password' placeholder='Password' className='rounded-full text-sm w-3/4 py-2 px-4 border border-gray-200 outline-none' />
           </div>
-          <button className='bg-black rounded-full text-white text-sm w-3/4 p-2 px-4'>
+          <button onClick={handleRegister} className='bg-black rounded-full text-white text-sm w-3/4 p-2 px-4'>
             register
           </button>
           <p onClick={() => setAuth(!auth)} className='text-xs text-gray-500'>already a user? <span className='cursor-pointer text-black font-medium'>Sign in</span></p>

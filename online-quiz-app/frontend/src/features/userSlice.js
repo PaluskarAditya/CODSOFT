@@ -86,19 +86,27 @@ export const getUserQuizes = createAsyncThunk('user/quizes', async () => {
 })
 
 export const register = createAsyncThunk('user/register', async (cred) => {
-  const res = await fetch(`${baseUrl}/api/user/register`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json"
-    },
-    body: JSON.stringify({
-      uname: cred.uname,
-      pass: cred.pass,
-      email: cred.email
-    })
-  });
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(`${baseUrl}/api/user/register`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        uname: cred.uname,
+        pass: cred.pass,
+        email: cred.email
+      })
+    });
+    const data = await res.json();
+
+    if (data.err) {
+      throw new Error(data.err);
+    }
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 const userSlice = createSlice({
@@ -107,7 +115,7 @@ const userSlice = createSlice({
   reducers: {
     logout: () => {
       localStorage.clear();
-      return {...initialState}
+      return { ...initialState }
     }
   },
   extraReducers: (builder) => {
@@ -120,11 +128,11 @@ const userSlice = createSlice({
     })
 
     builder.addCase(register.fulfilled, (state, action) => {
-        state.isLogin = true;
-        state.token = action.payload.token;
-        state.user = action.payload.user;
-        localStorage.setItem('user', JSON.stringify(action.payload.user));
-        localStorage.setItem('token', JSON.stringify(action.payload.token));
+      state.isLogin = true;
+      state.token = action.payload.token;
+      state.user = action.payload.user;
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
+      localStorage.setItem('token', JSON.stringify(action.payload.token));
     })
 
     builder.addCase(getUserQuizes.fulfilled, (state, action) => {
@@ -140,6 +148,10 @@ const userSlice = createSlice({
     })
 
     builder.addCase(login.rejected, (state, action) => {
+      state.error = action.error.message;
+    })
+
+    builder.addCase(register.rejected, (state, action) => {
       state.error = action.error.message;
     })
   }

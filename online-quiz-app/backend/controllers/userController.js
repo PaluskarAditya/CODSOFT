@@ -9,20 +9,19 @@ const token = (id) => {
 
 const signup = async (req, res) => {
   try {
-    const { name, uname, email, pass } = req.body;
-    const salt = await bcrypt.genSalt(10);
-    const hashed = await bcrypt.hash(pass, salt);
-    const user = await User({
-      username: uname,
-      email,
-      password: hashed,
-      name
-    });
-    if (user) {
-      await user.save();
-      res.status(204).json({user, token: token(user.id)});
+    const { email, uname, pass } = req.body
+    if (!uname || !pass || !email) {
+      res.json({ err: 'please fill all fields' });
     } else {
-      res.status(500).json({err: 'internal server error, please try again'});
+      const salt = await bcrypt.genSalt(10);
+      const hashed = await bcrypt.hash(pass, salt);
+      const user = await User({
+        username: uname, 
+        email, 
+        password: hashed,
+      })
+      await user.save();
+      user?res.json({user: user, token: token(user.id)}):res.json({err: 'please try again'});
     }
   } catch (error) {
     console.log(error.message);
