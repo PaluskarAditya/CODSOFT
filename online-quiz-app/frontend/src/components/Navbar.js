@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { logout } from '../features/userSlice';
@@ -11,9 +11,14 @@ export default function Navbar() {
   const nav = useNavigate();
   const handleLogout = () => {
     disp(logout());
-    nav('/auth');
-    setOpts(false)
+    setOpts(false);
   }
+
+  useEffect(() => {
+    if (isLogin === false) {
+      nav('/auth');
+    }
+  }, [isLogin])
 
   return (
     <nav className='p-3 z-50 fixed top-0 left-0 right-0 backdrop-blur-md bg-white/90'>
