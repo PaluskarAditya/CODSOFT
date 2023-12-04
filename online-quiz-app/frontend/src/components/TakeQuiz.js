@@ -15,7 +15,7 @@ export default function TakeQuiz() {
 
   useEffect(() => {
     const getQuizById = async () => {
-      const res = await fetch(`http://localhost:7070/api/quiz/getquiz/${id}`, {
+      const res = await fetch(`https://onlinequizapp-60uh.onrender.com/${id}`, {
         headers: {
           "Content-type": "application/json",
           "Authorization": JSON.parse(localStorage.getItem('token'))

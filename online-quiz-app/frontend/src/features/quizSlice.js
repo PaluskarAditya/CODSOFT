@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const baseUrl = 'http://localhost:7070'
+const baseUrl = 'https://onlinequizapp-60uh.onrender.com'
 
 export const getAllQuizes = createAsyncThunk('quiz/all', async () => {
   const res = await fetch(`${baseUrl}/api/quiz/all`);

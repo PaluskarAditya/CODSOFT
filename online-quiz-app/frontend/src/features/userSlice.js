@@ -1,6 +1,6 @@
 const { createSlice, createAsyncThunk, isRejectedWithValue } = require("@reduxjs/toolkit");
 
-const baseUrl = 'http://localhost:7070'
+const baseUrl = 'https://onlinequizapp-60uh.onrender.com'
 const initialState = {
   user: JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : {
     id: "",
@@ -47,7 +47,7 @@ export const deleteQuiz = createAsyncThunk('user/quizdelete', async (id) => {
 export const createQuiz = createAsyncThunk('users/quizcreate', async (quiz) => {
   try {
     console.log("thunk:", quiz);
-    const res = await fetch('http://localhost:7070/api/quiz/create', {
+    const res = await fetch(`${baseUrl}/create`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
