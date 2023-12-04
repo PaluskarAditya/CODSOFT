@@ -17,16 +17,18 @@ export default function TakeQuiz() {
     const getQuizById = async () => {
       const res = await fetch(`https://onlinequizapp-60uh.onrender.com/api/quiz/getquiz/${id}`, {
         headers: {
-          "Content-type": "application/json",
-          "Authorization": JSON.parse(localStorage.getItem('token'))
+          "Content-type": "application/json"
         }
       });
       const data = await res.json();
       setQuiz(data);
     };
-
     getQuizById();
   }, []);
+
+  useEffect(() => {
+    nav(`/explore/${id}`);
+  }, [])
 
   const handleAnswer = (i, j, data, change, e) => {
     const new_data = { ...data };
