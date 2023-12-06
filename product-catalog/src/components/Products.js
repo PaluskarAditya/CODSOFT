@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProds } from '../features/productSlice';
 import Modal from './Modal';
 
+
 export default function Products() {
   const [ prods, setProds ] = useState([]);
   const { all } = useSelector(state => state.products);
@@ -24,7 +25,7 @@ export default function Products() {
         modal ? <Modal close={setModal} /> : ""
       }
       {
-        prods.length !== 0 ? prods?.map(el => <Product key={el.id} prod={el} modal={setModal} />) : <h1>loading</h1>
+        prods.length !== 0 ? prods?.map((el, i ) => <Product key={el.id} i={i} prod={el} modal={setModal} />) : <h1>loading</h1>
       }
     </div>
   )
