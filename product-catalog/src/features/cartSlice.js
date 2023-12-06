@@ -11,9 +11,9 @@ const cartSlice = createSlice({
     add: (state, action) => {
       const exist = state.cart.find(el => el.id === action.payload.id);
       if (exist) {
-        exist.price = exist.price * exist.qty;
         state.total += exist.price * exist.qty;
-        state.items += Number(action.payload.qty);
+        exist.qty += 1;
+        state.items += 1;
       } else {
         state.total += action.payload.price * action.payload.qty;
         state.items += Number(action.payload.qty);
@@ -41,7 +41,7 @@ const cartSlice = createSlice({
       } else {
         state.total -= action.payload.price;
         state.items -= 1;
-        state = state.cart.map(el => el.id === action.payload.id ? { ...el, qty: el.qty -= 1 } : el);
+        state.cart = state.cart.map(el => el.id === action.payload.id ? { ...el, qty: el.qty - 1 } : el);
       }
     },
     clear: (state) => {
