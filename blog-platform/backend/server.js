@@ -39,9 +39,9 @@ app.get('/api/blogs/random', async (req, res) => {
 })
 
 // @GET -> get blogs for specific user
-app.get('/api/blogs/:id', auth, async (req, res) => {
+app.get('/api/blogs', auth, async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = req.headers['authorization'];
     const blogs = await BlogPost.find({ user_id: id });
     if (!blogs) {
       res.status(404).json({err: "No blogposts found"})
