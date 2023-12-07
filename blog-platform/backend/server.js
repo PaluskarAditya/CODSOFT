@@ -41,8 +41,7 @@ app.get('/api/blogs/random', async (req, res) => {
 // @GET -> get blogs for specific user
 app.get('/api/blogs', auth, async (req, res) => {
   try {
-    const token = req.headers['authorization'].split(' ')[1];
-    const id = await jwt.decode(token, process.env.JWT_SECRET);
+    const id = req.id;
     const blogs = await BlogPost.find({ user_id: id });
     if (!blogs) {
       res.status(404).json({err: "No blogposts found"})
