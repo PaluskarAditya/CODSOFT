@@ -179,13 +179,14 @@ app.get('/api/blogs/all', async (req, res) => {
   try {
     const blogs = await BlogPost.find();
     console.log(blogs);
-    if (!blogs) {
+    if (blogs.length > 0) {
       res.status(200).json(blogs);
     } else {
-      res.status(404).json({err: "no blogposts found"});
+      res.status(404).json({ err: "no blogposts found" });
     }
   } catch (error) {
     console.log(error.message);
+    res.status(500).json({ err: "internal server error" });
   }
 })
 
