@@ -9,6 +9,9 @@ export const login = createAsyncThunk('auth/login', async (cred) => {
     body: JSON.stringify({ uname: cred.uname, pass: cred.pass}),
   });
   const data = await res.json();
+  if (data.err) {
+    throw new Error(data.err);
+  }
   return data;
 })
 
@@ -48,6 +51,7 @@ const initialState = {
     id: "",
     email: "",
   },
+  err: null,
   token: JSON.parse(localStorage.getItem('token')) ? JSON.parse(localStorage.getItem('token')) : "",
   isLogin: JSON.parse(localStorage.getItem('user')) ? true : false
 }
@@ -96,6 +100,10 @@ const authSlice = createSlice({
       state.user.username = action.payload.username;
       state.user.name = action.payload.name;
       localStorage.setItem('user', JSON.stringify(action.payload));
+    })
+
+    builder.addCase(login.rejected, (state, action) => {
+      state.err = action.error.message;
     })
   }
 });

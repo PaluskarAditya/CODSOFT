@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { update } from '../features/authSlice';
+import { getUserBlogs, updateBlog } from '../features/blogSlice';
 
 export default function Profile() {
   const param = useParams();
-  const [userBlogs, setBlogs] = useState([]);   
+  const { userBlogs } = useSelector(state => state.blog);
+  const [userblogs, setBlogs] = useState([]);
   const [img, setImg] = useState('')
   const { id } = param;
   const { isLogin } = useSelector(state => state.auth);
@@ -16,21 +18,10 @@ export default function Profile() {
   const [user, setUser] = useState({ id: id, username: username, name: name, email: email });
   const disp = useDispatch();
 
-  const handleUpdate = async (id) => {
-    const res = await fetch(`https://blogplatformbackend.onrender.com/api/blogs/update/${id}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        "Authorization": JSON.parse(localStorage.getItem('token'))
-      },
-      body: JSON.stringify({
-        img1: blog.img1,
-        text: blog.text,
-        title: blog.title
-      })
-    });
-    const data = await res.json();
+  const handleUpdate = async () => {
+    disp(updateBlog(blog));
     alert('Your blog is updated successfully');
+    setEdit(false);
   }
 
   useEffect(() => {
@@ -38,18 +29,12 @@ export default function Profile() {
   }, [isLogin]);
 
   useEffect(() => {
-    const getUserBlogs = async () => {
-      const res = await fetch(`https://blogplatformbackend.onrender.com/api/blogs/${_id}`, {
-        method: "GET",
-        headers: {
-          "Authorization": JSON.parse(localStorage.getItem('token'))
-        }
-      });
-      const data = await res.json();
-      setBlogs(data);
-    }
+    setBlogs(userBlogs);
+    console.log(userblogs);
+  }, [userBlogs])
 
-    getUserBlogs();
+  useEffect(() => {
+    disp(getUserBlogs());
   }, [])
 
   const handleImageUpdate = (e) => {
@@ -57,7 +42,7 @@ export default function Profile() {
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = () => {
       console.log(reader.result);
-      setBlog({...blog, img1: reader.result});
+      setBlog({ ...blog, img1: reader.result });
     }
   }
 
@@ -67,7 +52,11 @@ export default function Profile() {
         <div className='bg-white p-5 rounded-md shadow-xl shadow-black/20'>
           <div className='flex justify-between items-center w-full'>
             <h1 className='font-medium tracking-tighter text-lg'>Edit modal</h1>
-            <button onClick={() => setEdit(false)}>x</button>
+            <button onClick={() => setEdit(false)}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
           <div className='flex flex-col'>
             <div className='w-full mt-3'>
@@ -85,7 +74,7 @@ export default function Profile() {
             </div>
           </div>
           <div className='flex w-full gap-3 mt-3'>
-            <button className='w-full bg-gradient-to-r from-gray-200 to-gray-400 text-sm tracking-tighter p-2 rounded-md' onClick={() => {handleUpdate(blog.id); setEdit(false)}}>update</button>
+            <button className='w-full bg-gradient-to-r from-gray-200 to-gray-400 text-sm tracking-tighter p-2 rounded-md' onClick={() => { handleUpdate(); setEdit(false) }}>update</button>
           </div>
         </div>
       </div> : ""}
@@ -97,11 +86,11 @@ export default function Profile() {
           </div>
           <div className='flex flex-col justify-center items-start'>
             <p className="tracking-tighter mb-1 text-md mt-3">name</p>
-            <input value={user.name} type='text' name='name' onChange={e => setUser({...user, [e.target.name]: e.target.value})} className="outline-none border border-gray-200 rounded-md p-2 text-sm" placeholder="john doe" />
+            <input value={user.name} type='text' name='name' onChange={e => setUser({ ...user, [e.target.name]: e.target.value })} className="outline-none border border-gray-200 rounded-md p-2 text-sm" placeholder="john doe" />
             <p className="tracking-tighter mb-1 text-md mt-3">username</p>
-            <input value={user?.username} type='text' name='username' onChange={e => setUser({...user, [e.target.name]: e.target.value})} className="outline-none border border-gray-200 rounded-md p-2 text-sm" placeholder="john doe" />
+            <input value={user?.username} type='text' name='username' onChange={e => setUser({ ...user, [e.target.name]: e.target.value })} className="outline-none border border-gray-200 rounded-md p-2 text-sm" placeholder="john doe" />
             <p className="tracking-tighter mb-1 text-md mt-3">email</p>
-            <input value={user.email} disabled type='text' name='email' onChange={e => setUser({...user, [e.target.name]: e.target.value})} className="outline-none border border-gray-200 rounded-md p-2 text-sm" placeholder="john doe" />
+            <input value={user.email} disabled type='text' name='email' onChange={e => setUser({ ...user, [e.target.name]: e.target.value })} className="outline-none border border-gray-200 rounded-md p-2 text-sm" placeholder="john doe" />
             <button className='text-sm bg-blue-600 w-full rounded-md mt-5 text-white p-2' onClick={() => disp(update(user))}>save</button>
           </div>
         </div>
@@ -110,7 +99,7 @@ export default function Profile() {
         <h1 className='font-black text-3xl tracking-tighter text-left'>Your blogs</h1>
         <div className='flex flex-col gap-5 w-full mt-5'>
           {
-            userBlogs ? userBlogs.map(el => <div key={el._id} className='flex max-[390px]:flex-col border border-gray-200 rounded-md'>
+            userBlogs.length !== 0 ? userBlogs?.map(el => <div key={el._id} className='flex max-[390px]:flex-col border border-gray-200 rounded-md'>
               <div className='flex-1'>
                 <img src={el.img1} className='h-full max-[390px]:h-[200px] w-full object-cover' />
               </div>
@@ -118,7 +107,7 @@ export default function Profile() {
                 <h1 className='tracking-tighter font-medium'>{el.title}</h1>
                 <p className='text-sm tracking-tighter'>{el.text.slice(0, 200)}...</p>
                 <div className='flex w-full gap-5 mt-3'>
-                  <button className='w-full bg-gradient-to-r from-gray-200 to-gray-400 text-sm tracking-tighter p-2 rounded-md' onClick={() => {setEdit(true); setBlog({ img1: el.img1, text: el.text, title: el.title, id: el._id})}}>edit</button>
+                  <button className='w-full bg-gradient-to-r from-gray-200 to-gray-400 text-sm tracking-tighter p-2 rounded-md' onClick={() => { setEdit(true); setBlog({ img1: el.img1, text: el.text, title: el.title, id: el._id }) }}>edit</button>
                   <button className='w-full bg-gradient-to-l from-gray-200 to-gray-400 text-sm tracking-tighter p-2 rounded-md'>delete</button>
                 </div>
               </div>

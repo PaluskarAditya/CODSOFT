@@ -15,7 +15,7 @@ export const addComment = createAsyncThunk('comments/add', async (comment) => {
     mode: "cors",
     headers: {
       "Content-type": "application/json",
-      "Authorization": JSON.parse(localStorage.getItem('token'))
+      "Authorization": `Bearer ${JSON.parse(localStorage.getItem('token'))}`
     },
     body: JSON.stringify({
       username: comment.username,

@@ -5,7 +5,7 @@ import { login, logout } from '../features/authSlice';
 
 export default function Navbar() {
   const { isLogin } = useSelector(state => state.auth);
-  const { username, id } = useSelector(state => state.auth.user);
+  const { username, _id } = useSelector(state => state.auth.user);
   const [navToggle, setNav] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
   const [toggle, setTog] = useState(false)
@@ -50,7 +50,7 @@ export default function Navbar() {
           <li className='text-sm p-1 tracking-tighter font-light' onClick={() => setNav(false)}><Link to={'/explore'} >explore</Link></li>
           {isLogin ? <><li className='text-sm tracking-tighter p-1' onClick={() => setOpt(!opt)}>{username}</li>{opt ? <div className='z-50 flex flex-col justify-center items-end bg-blue-900 p-1 px-3 rounded-md absolute top-[130px]'>
             <li className='text-right text-sm p-1 hover:bg-blue-900/70 transition' onClick={() => setNav(false)}><Link to={'/create-blog'}>Create</Link></li>
-            <li className='text-right text-sm p-1 hover:bg-blue-900/70 transition' onClick={() => setNav(false)}><Link to={`/profile/${id}`}>Profile</Link></li>
+            <li className='text-right text-sm p-1 hover:bg-blue-900/70 transition' onClick={() => setNav(false)}><Link to={`/profile/${_id}`}>Profile</Link></li>
             <li className='text-right text-sm p-1 hover:bg-blue-900/70 transition' onClick={() => { disp(logout()); nav('/auth'); setNav(!navToggle) }}>Logout</li>
           </div> : "" }</> : <li className='text-sm p-1 tracking-tighter font-light' onClick={() => setNav(false)}><Link to={'/auth'}>Login</Link></li>}
         </div> : ""}
@@ -71,7 +71,7 @@ export default function Navbar() {
             {opt ? <div className='bg-blue-800/50 rounded-md absolute top-[60px] right-0 w-full z-50'>
               <ul className='flex flex-col bg-blue-900/50 rounded-md z-50'>
                 <li className='p-2 py-2 cursor-pointer text-xs hover:bg-blue-900/70 rounded-md'><Link to={'/create-blog'}>Create</Link></li>
-                <li className='p-2 py-2 cursor-pointer text-xs hover:bg-blue-900/70 rounded-md'><Link to={`/profile/${id}`}>Profile</Link></li>
+                <li className='p-2 py-2 cursor-pointer text-xs hover:bg-blue-900/70 rounded-md'><Link to={`/profile/${_id}`}>Profile</Link></li>
                 <li className='p-2 py-2 cursor-pointer text-xs hover:bg-blue-900/70 rounded-md'>Settings</li>
                 <li onClick={() => { disp(logout()); nav('/auth') }} className='p-2 py-2 cursor-pointer text-xs hover:bg-blue-900/70 rounded-md flex items-center'>
                   <p>Sign out</p>

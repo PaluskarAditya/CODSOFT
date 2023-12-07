@@ -7,12 +7,17 @@ export default function Auth() {
   const [auth, setAuth] = useState(true);
   const { isLogin } = useSelector(state => state.auth);
   const [cred, setCred] = useState({ uname: "", email: "", pass: "" });
+  const { err } = useSelector(state => state.auth);
   const disp = useDispatch();
   const nav = useNavigate();
 
   useEffect(() => {
     isLogin === true ? nav('/') : nav('/auth');
   }, [isLogin])
+
+  useEffect(() => {
+    alert(err);
+  }, [err])
 
   return (
     <div className='h-screen flex justify-center items-center snap-x'>

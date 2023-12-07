@@ -40,7 +40,7 @@ export default function Modal({close}) {
   
   return (
     <div className='z-50 bg-black/30 fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center p-10'>
-      <motion.div variants={fadeUpVairants} exit="exit" initial="hidden" animate="animate" className='bg-white relative p-5 shadow-xl shadow-black/20 max-w-[90vw]'>
+      <motion.div variants={fadeUpVairants} exit="exit" initial="hidden" whileInView="animate" className='max-[390px]:overflow-x-hidden bg-white relative p-5 shadow-xl shadow-black/20 max-w-[90vw] max-[390px]:overflow-x-hidden'>
         <div className='flex justify-between max-[390px]:flex-col items-center gap-5 max-[390px]:mt-[10px]'>
           <div className='flex-1 flex justify-between gap-3'>
             <div className='flex flex-col flex-1 gap-3 max-h-[500px] max-[390px]:max-h-[200px]'>
