@@ -175,7 +175,7 @@ app.get('/api/blogs/random/:limit', async (req, res) => {
 });
 
 // @GET -> get all blogposts
-app.get('/api/blogs', async (req, res) => {
+app.get('/api/blogs/all', async (req, res) => {
   try {
     const blogs = await BlogPost.find();
     if (blogs) {
