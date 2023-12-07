@@ -39,7 +39,7 @@ app.get('/api/blogs/random', async (req, res) => {
 })
 
 // @GET -> get blogs for specific user
-app.get('/api/blogs', auth, async (req, res) => {
+app.get('/api/blogs/user', auth, async (req, res) => {
   try {
     const id = req.id;
     const blogs = await BlogPost.find({ user_id: id });
@@ -175,7 +175,7 @@ app.get('/api/blogs/random/:limit', async (req, res) => {
 });
 
 // @GET -> get all blogposts
-app.get('/api/blogs/all', async (req, res) => {
+app.get('/api/blogs', async (req, res) => {
   try {
     const blogs = await BlogPost.find();
     console.log('blogs:', blogs);
