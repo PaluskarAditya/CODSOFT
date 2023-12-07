@@ -42,6 +42,7 @@ app.get('/api/blogs/random', async (req, res) => {
 app.get('/api/blogs', auth, async (req, res) => {
   try {
     const id = req.id;
+    console.log(id);
     const blogs = await BlogPost.find({ user_id: id });
     if (!blogs) {
       res.status(404).json({err: "No blogposts found"})
