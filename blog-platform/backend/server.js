@@ -178,7 +178,7 @@ app.get('/api/blogs/random/:limit', async (req, res) => {
 app.get('/api/blogs/all', async (req, res) => {
   try {
     const blogs = await BlogPost.find();
-    if (blogs) {
+    if (!blogs) {
       res.status(200).json(blogs);
     } else {
       res.status(404).json({err: "no blogposts found"});
